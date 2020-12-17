@@ -20,117 +20,71 @@
       v-model="drawer"
       fixed
       temporary
-      width="350"
     >
-    <template>
-    <v-card
-    class="mx-auto"
-    width="800"
-  >
-    <v-list>
-      <v-list-item>
-        <v-list-item-icon>
-          <v-icon>mdi-home</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-title>Inicio</v-list-item-title>
-      </v-list-item>
-
-      <v-list-group
-        :value="true"
-        prepend-icon="mdi-account-circle"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>Administración de servicios</v-list-item-title>
-        </template>
-
-        <v-list-group
-          :value="true"
-          no-action
-          sub-group
+       <v-card
+      class="mx-auto"
+      width="300"
+    >
+      <v-list>
+        <v-list-item
+        v-bind:to="{name: 'Home'}"
         >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Categorias</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in categorias"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+  
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
+  
         <v-list-group
-          :value="true"
-          no-action
-          sub-group
+          
+          prepend-icon="mdi-account-circle"
         >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Artículos</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in articulos"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-        </v-list-group>
-
-          <v-list-group
-        :value="true"
-        prepend-icon="mdi-account-circle"
-        no-action
-      >
-        <template v-slot:activator>
-          <v-list-item-content>
-          <v-list-item-title>Administrador de usuarios</v-list-item-title>
-          </v-list-item-content>
-        </template>
-
-              <v-list-item 
-                v-for="([title], i) in usuarios"
-                :key="i"
-                link>
-             <v-list-item-content>
+         
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Admin</v-list-item-title>
+              </v-list-item-content>
+            </template>
+  
+            <v-list-item
+              v-for="([title, icon, ruta], i) in admins"
+              :key="i"
+              :to="{name:ruta}"
+            >
               <v-list-item-title v-text="title"></v-list-item-title>
-               </v-list-item-content>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
             </v-list-item>
-          <!-- <v-list-item
-            v-for="([title, icon], i) in usuarios"
-            :key="i"
-            link
+          </v-list-group>
+  
+          <v-list-group
+            
+          prepend-icon="mdi-account-circle"
+                        
           >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item> -->
-    
-
-        
-        </v-list-group>
-      
-    </v-list>
-  </v-card>
-  </template>
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Actions</v-list-item-title>
+              </v-list-item-content>
+            </template>
+  
+            <v-list-item
+              v-for="([title, icon,ruta], i) in cruds"
+              :key="i"
+              :to="{name: ruta}"
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-group>
+      </v-list>
+    </v-card>
       <!--  -->
     </v-navigation-drawer>
 
@@ -156,18 +110,13 @@ export default {
 
   data: () => ({
       drawer: null,
-      categorias: [
-        ['Categoria 1', 'mdi-account-multiple-outline'],
-        ['Categoria 2', 'mdi-cog-outline'],
-      ],
-      articulos: [
-        ['Artículo 1', 'mdi-plus-outline'],
-        ['Artículo 2', 'mdi-file-outline'],
-        ['Artículo 3', 'mdi-update'],
-      ],
-      usuarios: [
-        ['Listar'],
-      ],
+      admins: [
+      ['Categorias', 'mdi-account-multiple-outline', 'Categoria'],
+      ['Articulos', 'mdi-cog-outline','Articulo'],
+    ],
+    cruds: [
+      ['Usuarios', 'mdi-plus-outline', 'Usuario'],
+    ],
     }),
 };
 </script>
