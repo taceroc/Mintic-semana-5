@@ -6,7 +6,7 @@ const auth = require("../../middlewares/auth");
 
 
 //api/api/auth
-router.get('/list', categoriaController.listar);
+router.get('/list', categoriaController.list);
 
 // crear usuario
 // encripta contraseña

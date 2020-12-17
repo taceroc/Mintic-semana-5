@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const models = require('../models');
 
-exports.listar = async (req, res, next) => {
+exports.list = async (req, res, next) => {
     try {
         const registro = await models.Categoria.findAll({
             where: {
