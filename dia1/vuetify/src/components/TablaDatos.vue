@@ -3,8 +3,8 @@
   <v-app id="inspire">
     <v-data-table
       :headers="headers"
-      :items="desserts"
-      sort-by="calories"
+      :items="categorias"
+      sort-by="nombre"
       class="elevation-1"
     >
       <template v-slot:top>
@@ -30,7 +30,7 @@
                 v-bind="attrs"
                 v-on="on"
               >
-                New Item
+                Agregar categoria
               </v-btn>
             </template>
             <v-card>
@@ -152,13 +152,15 @@
       </template>
     </v-data-table>
   </v-app>
+  <pre>
+    {{ $data.categorias }}
+  </pre>
 </div>
 </template>
 
 <script>
-
-export default{
-
+import axios from 'axios';
+export default {
 data: () => ({
     dialog: false,
     dialogDelete: false,
@@ -173,7 +175,8 @@ data: () => ({
       { text: 'Estado', value: 'estado' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    desserts: [],
+    desserts:[],
+    categorias: [],
     editedIndex: -1,
     editedItem: {
       nombre: '',
@@ -203,7 +206,7 @@ data: () => ({
   },
 
   created () {
-    this.initialize()
+    this.list()
   },
 
   methods: {
@@ -217,8 +220,14 @@ data: () => ({
       ]
     },
 
-    listar(){
-      
+    list () {
+      axios.get('http://localhost:3000/api/categoria/list')
+      .then(response => {
+        this.categorias = response.data;
+      })
+      .catch(error =>{
+        console.log(error);
+      })
     },
 
     editItem (item) {
