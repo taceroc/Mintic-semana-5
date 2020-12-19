@@ -1,13 +1,14 @@
 <template>
-    <tabla-datos></tabla-datos>
+    <tabla-categoria></tabla-categoria>
 </template>
 
 <script>
-import TablaDatos from '../components/TablaDatos.vue'
+import TablaCategoria from '../components/TablaCategoria.vue'
 
-export default{
+
+export default {
     components:{
-        TablaDatos
+        TablaCategoria
     }
 
 }

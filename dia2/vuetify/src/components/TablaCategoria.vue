@@ -1,6 +1,7 @@
 <template>
-<div id="app">
+<div>
   <v-app id="inspire">
+
     <v-data-table
       :headers="headers"
       :items="categorias"
@@ -8,6 +9,7 @@
       class="elevation-1"
     >
       <template v-slot:top>
+
         <v-toolbar
           flat
         >
@@ -134,7 +136,13 @@
         </v-btn>
       </template>
     </v-data-table>
+ 
+<AutenticadoInfo>
+</AutenticadoInfo>
   </v-app>
+
+
+  
   <pre>
     {{ $data.categorias }}
   </pre>
@@ -143,7 +151,11 @@
 
 <script>
 import axios from 'axios';
+import AutenticadoInfo from '../components/AutenticadoInfo.vue'
 export default {
+  components:{
+        AutenticadoInfo
+    },
 data: () => ({
     dialog: false,
     dialogDelete: false,
