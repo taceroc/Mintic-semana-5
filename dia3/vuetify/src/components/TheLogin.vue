@@ -63,9 +63,9 @@ export default {
             }
         }
     },
-   beforeCreate(){
-      this.$store.dispatch('autoLogin') ? this.$router.push('/autenticado'): false;
-    },
+  //  beforeCreate(){
+  //     this.$store.dispatch('autoLogin') ? this.$router.push('/autenticado'): false;
+  //   },
     methods:{
         loginUser(){
             axios.post('http://localhost:3000/api/usuario/login', this.login)

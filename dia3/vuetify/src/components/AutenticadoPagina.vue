@@ -19,7 +19,7 @@
 
     <v-card-text class="text--primary">
       <div>
-          <h3>Al costado izquierdo pude encontrar el menú desplegable para acceder a diferentes funcionalidades.</h3>
+          <h3>Al costado izquierdo pude encontrar el menú desplegable para acceder a las diferentes funcionalidades.</h3>
 </div>
 
     </v-card-text>

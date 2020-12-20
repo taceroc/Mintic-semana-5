@@ -1,12 +1,44 @@
 <template>
 
   <v-container>
-      <p class="subheading font-weight-regular">
+  
+      <!-- <p class="subheading font-weight-regular">
           <a 
             href="http://localhost:8080/login"
             target="_blank"
           >Login</a>
-        </p>
+        </p> -->
+
+      <!-- <v-list-item
+        v-bind:to="{name: 'Login'}"
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+  
+          <v-list-item-title>Login</v-list-item-title>
+        </v-list-item> -->
+
+        <template v-if="!this.$store.state.user">
+          <router-link style="text-decoration: none" :to="{name: 'Login'}" class="mr-5 ml-5" exact> 
+            <v-btn color="red" target="_blank"> Login </v-btn> 
+            </router-link>
+          </template>
+
+           <template v-else>
+
+            <router-link style="text-decoration: none" :to="{name: 'Autenticado'}" class="mr-5 ml-5" exact> 
+              <v-btn color="red" target="_blank"> Login </v-btn>
+              </router-link>
+          </template>
+
+          
+
+        <!-- <v-btn href="/login" target="_blank">
+        Login
+        </v-btn> -->
+
+     
 
     <v-row class="text-center">
       <v-col cols="12">
