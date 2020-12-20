@@ -1,6 +1,13 @@
 <template>
 
   <v-container>
+      <p class="subheading font-weight-regular">
+          <a 
+            href="http://localhost:8080/login"
+            target="_blank"
+          >Login</a>
+        </p>
+
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -95,6 +102,7 @@
 <script>
   export default {
     name: 'HelloWorld',
+   
 
     data: () => ({
       ecosystem: [

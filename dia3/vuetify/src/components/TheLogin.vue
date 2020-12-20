@@ -1,14 +1,28 @@
 <template>
+<v-card
+    class="mx-auto"
+>
+<v-container>
   <v-form
     ref="form"
     lazy-validation
+   
   >
+          <v-card
+            color="#385F73"
+            dark
+          >
+            <v-card-title class="headline justify-center" >
+              Ingreso al Sistema
+            </v-card-title>
+
+          </v-card>
 
     <v-text-field
       v-model="login.email"
-      :rules="emailRules"
       label="E-mail"
       required
+      color="teal"
     ></v-text-field>
 
     <v-text-field
@@ -16,25 +30,31 @@
       label="Contraseña"
       type="password"
       required
+      color="teal"
     ></v-text-field>
    
 
     <v-btn
-    :disable="!(this.login.password &&  his.login.email)"
+    :disable="!(this.login.password && this.login.email)"
       color="success"
       class="mr-4"
       block
       @click="loginUser"
     >
-      Validate
+      Validar
     </v-btn>
   </v-form>
+  </v-container>
+  </v-card>
 </template>
 <script>
-import swal from  'sweetalert';
+import swal from 'sweetalert'
 import VueJwtDecode from 'vue-jwt-decode';
+import axios from 'axios';
+
 export default {
   name: "TheLogin",
+  
     data(){
         return{
             login:{
@@ -43,33 +63,35 @@ export default {
             }
         }
     },
+   beforeCreate(){
+      this.$store.dispatch('autoLogin') ? this.$router.push('/autenticado'): false;
+    },
     methods:{
-        async loginUser(){
-            try{
-            let response = await this.$http.post('/api/auth/signin', this.login);
-            console.log(response.data);
-            let token = response.data.accessToken;
-            let user = response.data.user;
-            localStorage.setItem('jwt', token);
-            localStorage.setItem('user', JSON.stringify(user));
+        loginUser(){
+            axios.post('http://localhost:3000/api/usuario/login', this.login)
+                .then(response => {
+                    return response.data;
+                })
+                .then(data => {
+                    this.$store.dispatch('guardarToken', data.tokenReturn);
+                    this.$router.push('/autenticado');
+                    swal("Acceso correcto", `Bienvenida(o)`, "success");
+                    console.log(data.tokenReturn);
+                })
+                .catch(error =>{
+                    swal("Datos incorrectos", "Revisa las entradas", "error");
+                    console.log(error);
+                    return error;
+                })
             
-            if(token){
-                swal("Te logeaste correctamente", `Buen trabajo ${user.email}`, "success");
-                this.$router.push('/home')
-            }
-            }
-
-            catch(error){
-                swal("Datos incorrectos", "Revisa las entradas", "error");
-                console.log(error)
-            }
-
         }
     }
     
 }
 
 </script>
-<style scoped>
-
+<style>
+.swal-modal {
+  font-family: Helvetica;
+}
 </style>

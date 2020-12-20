@@ -8,7 +8,7 @@
       sort-by="id"
       class="elevation-1"
       :loading="cargando"
-      loading-text="Loading... Please wait"
+      loading-text="Cargando... Porfavor espere"
     >
       <template v-slot:top>
 
@@ -203,7 +203,11 @@ data: () => ({
 
   methods: {
     list () {
-      axios.get('http://localhost:3000/api/categoria/list')
+      axios.get('http://localhost:3000/api/categoria/list',{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
       .then(response => {
         this.categorias = response.data;
         this.cargando = false;
@@ -231,7 +235,11 @@ data: () => ({
         //put
         axios.put('http://localhost:3000/api/categoria/deactivate', {
           "id": this.editedItem.id,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -242,7 +250,11 @@ data: () => ({
         //post
         axios.put('http://localhost:3000/api/categoria/activate', {
           "id": this.editedItem.id,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -276,7 +288,11 @@ data: () => ({
           "id": this.editedItem.id,
           "nombre": this.editedItem.nombre ,
           "descripcion": this.editedItem.descripcion ,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -289,7 +305,11 @@ data: () => ({
           "estado": 1,
           "nombre": this.editedItem.nombre,
           "descripcion": this.editedItem.descripcion,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })

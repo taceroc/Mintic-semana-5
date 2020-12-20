@@ -7,6 +7,8 @@
       :items="usuarios"
       sort-by="id"
       class="elevation-1"
+      :loading="cargando"
+      loading-text="Cargando... Porfavor espere"
     >
       <template v-slot:top>
 
@@ -166,29 +168,21 @@
         </v-btn>
       </template>
     </v-data-table>
- 
-<AutenticadoInfo>
-</AutenticadoInfo>
   </v-app>
-
-
-  
-  <pre>
-    {{ $data.usuarios }}
-  </pre>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-import AutenticadoInfo from '../components/AutenticadoInfo.vue'
+// import AutenticadoInfo from '../components/AutenticadoInfo.vue'
 export default {
-  components:{
-        AutenticadoInfo
-    },
+  // components:{
+  //       AutenticadoInfo
+  //   },
 data: () => ({
     dialog: false,
     dialogDelete: false,
+    cargando: true,
     headers: [
       {
         text: 'ID',
@@ -221,6 +215,7 @@ data: () => ({
     },
   }),
 
+
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? 'Nuevo Item' : 'Editar Item'
@@ -252,9 +247,14 @@ data: () => ({
     },
 
     list () {
-      axios.get('http://localhost:3000/api/usuario/list')
+      axios.get('http://localhost:3000/api/usuario/list',{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
       .then(response => {
         this.usuarios = response.data;
+        this.cargando = false;
       })
       .catch(error =>{
         console.log(error);
@@ -279,7 +279,11 @@ data: () => ({
         //put
         axios.put('http://localhost:3000/api/usuario/deactivate', {
           "id": this.editedItem.id,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -290,7 +294,11 @@ data: () => ({
         //post
         axios.put('http://localhost:3000/api/usuario/activate', {
           "id": this.editedItem.id,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -325,7 +333,11 @@ data: () => ({
           "nombre": this.editedItem.nombre ,
           "email": this.editedItem.email ,
           "rol": this.editedItem.rol ,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -340,7 +352,11 @@ data: () => ({
           "email": this.editedItem.email ,
           "password": this.editedItem.password,
           "rol": this.editedItem.rol ,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })

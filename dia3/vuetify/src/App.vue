@@ -2,8 +2,7 @@
 
  <v-app>
         <router-view></router-view>
-
-     </v-app>
+  </v-app>
 </template>
 
 <script>

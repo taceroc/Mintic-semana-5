@@ -7,6 +7,8 @@
       :items="articulos"
       sort-by="id"
       class="elevation-1"
+      :loading="cargando"
+      loading-text="Cargando... Porfavor espere"
     >
       <template v-slot:top>
 
@@ -168,23 +170,22 @@
         </v-btn>
       </template>
     </v-data-table>
- 
-<AutenticadoInfo>
-</AutenticadoInfo>
+
   <!-- </v-app> -->
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-import AutenticadoInfo from '../components/AutenticadoInfo.vue'
+// import AutenticadoInfo from '../components/AutenticadoInfo.vue'
 export default {
-  components:{
-        AutenticadoInfo
-    },
+  // components:{
+  //       AutenticadoInfo
+  //   },
 data: () => ({
     dialog: false,
     dialogDelete: false,
+    cargando: true,
     headers: [
       {
         text: 'ID',
@@ -260,16 +261,25 @@ data: () => ({
     },
 
     list () {
-      axios.get('http://localhost:3000/api/articulo/list')
+      axios.get('http://localhost:3000/api/articulo/list',{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
       .then(response => {
         this.articulos = response.data;
+        this.cargando = false;
       })
       .catch(error =>{
         console.log(error);
       })
     },
     listcategoria () {
-      axios.get('http://localhost:3000/api/categoria/list')
+      axios.get('http://localhost:3000/api/categoria/list',{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
       .then(response => {
         this.categorias = response.data;
       })
@@ -297,7 +307,11 @@ data: () => ({
         //put
         axios.put('http://localhost:3000/api/articulo/deactivate', {
           "id": this.editedItem.id,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -308,7 +322,11 @@ data: () => ({
         //post
         axios.put('http://localhost:3000/api/articulo/activate', {
           "id": this.editedItem.id,
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -345,7 +363,11 @@ data: () => ({
           "codigo": this.editedItem.codigo ,
           "descripcion": this.editedItem.descripcion ,
           "categoriaId": this.categoria.id
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })
@@ -360,7 +382,11 @@ data: () => ({
           "codigo": this.editedItem.codigo ,
           "descripcion": this.editedItem.descripcion ,
           "categoriaId": this.categoria.id
-        })
+        },{
+        headers: {
+          token: this.$store.state.token
+        }
+      })
         .then(response => {
           this.list();
         })

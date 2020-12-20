@@ -9,20 +9,33 @@
 
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar> -->
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar app
+    color="blue-grey lighten-2">
+      <v-app-bar-nav-icon 
+      @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Menú</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+      icon
+      class="mr-5"
+      @click="salir()">
+    <v-icon> mdi-logout</v-icon>
+    <span>salir</span>
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
       v-model="drawer"
       fixed
       temporary
+      width="350px"
+      color="blue-grey"
     >
        <v-card
       class="mx-auto"
-      width="300"
+      width="350"
+      color="blue-grey lighten-3"
     >
       <v-list>
         <v-list-item
@@ -37,12 +50,12 @@
   
         <v-list-group
           
-          prepend-icon="mdi-account-circle"
+          prepend-icon="mdi-lead-pencil"
         >
          
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title>Admin</v-list-item-title>
+                <v-list-item-title>Administrador de Servicios</v-list-item-title>
               </v-list-item-content>
             </template>
   
@@ -59,14 +72,13 @@
             </v-list-item>
           </v-list-group>
   
-          <v-list-group
-            
-          prepend-icon="mdi-account-circle"
-                        
+          <v-list-group 
+          
+          prepend-icon="mdi-account-circle"             
           >
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title>Actions</v-list-item-title>
+                <v-list-item-title>Permisos</v-list-item-title>
               </v-list-item-content>
             </template>
   
@@ -107,5 +119,14 @@ export default {
       ['Usuarios', 'mdi-human', 'Usuario'],
     ],
     }),
+    created(){
+      this.$store.dispatch('autoLogin');
+    },
+
+    methods:{
+      salir(){
+        this.$store.dispatch('salir');
+      }
+    }
 }
 </script>
