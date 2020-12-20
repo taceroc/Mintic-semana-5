@@ -8,16 +8,16 @@ const router = routerx();
 
 
 //api/api/auth
-router.get('/list', userController.list);
+router.get('/list', auth.verifyUsuario, userController.list);
 
 // crear usuario
 // encripta contraseña
-router.post('/register', userController.register);
+router.post('/register', auth.verifyUsuario, userController.register);
 
 //controlador: maneja la logica, lo de async().. iria en el controlador
 router.post('/login', userController.login);
 
-router.put('/update', userController.update);
+router.put('/update',auth.verifyUsuario,userController.update);
 
 
 
