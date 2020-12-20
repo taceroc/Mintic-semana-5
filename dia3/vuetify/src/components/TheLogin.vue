@@ -74,9 +74,13 @@ export default {
                 })
                 .then(data => {
                     this.$store.dispatch('guardarToken', data.tokenReturn);
-                    this.$router.push('/autenticado');
-                    swal("Acceso correcto", `Bienvenida(o)`, "success");
-                    console.log(data.tokenReturn);
+                    if (this.$store.state.user.rol === "Administrador" || this.$store.state.user.rol === "Vendedor"){
+                      this.$router.push('/autenticado');
+                      swal("Acceso correcto", `Bienvenida(o)`, "success");
+                      console.log(data.tokenReturn);
+                    }else{
+                      this.$router.push('/');
+                    }
                 })
                 .catch(error =>{
                     swal("Datos incorrectos", "Revisa las entradas", "error");

@@ -25,9 +25,16 @@
             </router-link>
           </template>
 
-           <template v-else>
+           <template v-else-if="this.$store.state.user.rol == 'Administrador' || this.$store.state.user.rol == 'Vendedor' || this.$store.state.user.rol == 'Almacenero'">
 
             <router-link style="text-decoration: none" :to="{name: 'Autenticado'}" class="mr-5 ml-5" exact> 
+              <v-btn color="red" target="_blank"> Login </v-btn>
+              </router-link>
+          </template>
+
+            <template v-else>
+
+            <router-link style="text-decoration: none" :to="{name: 'Home'}" class="mr-5 ml-5" exact> 
               <v-btn color="red" target="_blank"> Login </v-btn>
               </router-link>
           </template>

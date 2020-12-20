@@ -346,7 +346,7 @@ data: () => ({
         })
       } else {
         //post
-        axios.post('http://localhost:3000/api/usuario/register', {
+        axios.post('http://localhost:3000/api/usuario/add', {
           "estado": 1,
           "nombre": this.editedItem.nombre ,
           "email": this.editedItem.email ,
